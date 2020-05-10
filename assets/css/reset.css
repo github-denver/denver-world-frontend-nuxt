@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+/* ---------- ---------- ---------- ---------- ----------
+최종 수정일 : 9999.99.99
+
+알림 :
+---------- ---------- ---------- ---------- ---------- */
+
+/* reset
+---------- ---------- ---------- ---------- ---------- */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  color: #000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+}
+
+img {
+  border: 0 none;
+  vertical-align: top;
+}
+
+a,
+a:active,
+a:hover,
+a:visited,
+a:link {
+  text-decoration: none;
+}
+
+caption {
+  overflow: hidden;
+  width: 1px;
+  font-size: 1px;
+  line-height: 0;
+  text-indent: -9999px;
+}

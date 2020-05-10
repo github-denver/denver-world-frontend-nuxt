@@ -1,0 +1,103 @@
+@charset "utf-8";
+
+/* ---------- ---------- ---------- ---------- ----------
+최종 수정일 : 9999.99.99
+
+알림 :
+---------- ---------- ---------- ---------- ---------- */
+
+/* global
+---------- ---------- ---------- ---------- ---------- */
+.screen_out {
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  line-height: 0;
+  text-indent: -9999px;
+}
+
+.inner_global {
+  position: relative;
+  min-width: 320px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.inner_scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.outer_cell {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.inner_cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.ico_global {
+  display: inline-block;
+  overflow: hidden;
+  width: 30px;
+  height: 30px;
+  font-size: 1px;
+  line-height: 0;
+  color: transparent;
+  background-image: url(about:blank);
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  background-color: #ff0000;
+  vertical-align: middle;
+}
+
+.btn_global {
+  display: inline-block;
+  border: 0 none;
+  font-family: sans-serif;
+  line-height: 1;
+  background-color: transparent;
+  text-align: center;
+  cursor: pointer;
+}
+
+/**/
+
+.link_global {
+  display: block;
+  padding: 13px 0;
+  border: 1px solid #0074c2;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  color: #0074c2;
+  background-color: #fff;
+  text-align: center;
+}
+
+.link_action {
+  color: #fff;
+  border-color: transparent;
+  background-color: #0074c2;
+}
+
+.link_delete,
+.link_search {
+  color: #fff;
+  border-color: transparent;
+  background-color: #000;
+}

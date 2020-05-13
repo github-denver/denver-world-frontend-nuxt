@@ -91,7 +91,7 @@ export const actions = {
       .get(url, { headers: { Pragma: 'no-cache' } })
       .then((response) => {
         const { list, pagination, select, keyword } = response.data
-        console.log('[actions.js] response.data: ', response.data)
+        // console.log('[actions.js] response.data: ', response.data)
 
         commit(FETCH_POST_LIST, { posts: list, pagination })
         commit(SEARCH_INFO, { select, keyword })

@@ -1,14 +1,18 @@
 <template>
-  <h1>number: {{ number }}</h1>
+  <fragment>
+    <p>params: {{ params }}</p>
+    <p>query: {{ query }}</p>
+  </fragment>
 </template>
 
 <script>
 export default {
-  asyncData({ params }) {
+  asyncData({ params, query }) {
     console.log('params: ', params)
 
     return {
-      number: params.number
+      params,
+      query
     }
   },
   validate({ params }) {

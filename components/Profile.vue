@@ -1,19 +1,28 @@
 <template>
   <div class="grp_profile">
-    <a href="/member/login" class="link_profile">
-      <div class="grp_picture">
-        <img src="/uploads/default_picture.png" alt="" class="thumb_local" />
-      </div>
+    <nuxt-link :to="{ name: 'member-login' }" class="link_profile">
+      <Picture :attribute="{ authorized: isAuthorized, user: user }" />
 
-      <span class="txt_profile">로그인해 주세요.</span>
-    </a>
+      <span v-if="user" class="txt_profile">{{ user.name }}</span>
+      <span v-else class="txt_profile">로그인해주세요.</span>
+    </nuxt-link>
   </div>
+  <!-- // grp_profile -->
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
+import Picture from '~/components/Picture'
+
 export default {
-  name: 'Profile'
+  name: 'Profile',
+  components: {
+    Picture
+  },
+  computed: {
+    ...mapGetters(['isAuthorized']),
+    ...mapState(['user'])
+  }
 }
 </script>
-
-<style></style>

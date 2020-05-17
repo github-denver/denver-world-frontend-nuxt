@@ -16,12 +16,12 @@ module.exports = {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
-      {
+      /* {
         src: 'https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js'
       },
       {
         src: 'https://cdnjs.cloudflare.com/ajax/libs/event-source-polyfill/0.0.9/eventsource.js'
-      }
+      } */
     ]
   },
   /*
@@ -35,7 +35,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/vue-fragment'],
+  plugins: ['~/plugins/vue-fragment', '~/plugins/vue-moment', { src: '~/plugins/vue2-editor', mode: 'client' }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -48,7 +48,9 @@ module.exports = {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'cookie-universal-nuxt'
+    // ['cookie-universal-nuxt', { alias: 'cookiz' }]
   ],
   /*
    ** Axios module configuration
@@ -75,5 +77,28 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  router: {
+    middleware: 'init',
+    extendRoutes(routes, resolve) {
+      const except = ['member-welcome', 'member-create', 'member-login']
+
+      routes.forEach((route, index) => {
+        for (let i = 0; i < except.length; i++) {
+          if (route.name === except[i]) return
+        }
+
+        routes[index] = {
+          ...routes[index],
+          components: {
+            default: routes[index].component,
+            header: resolve(__dirname, 'components/Header.vue')
+          },
+          chunkNames: {
+            header: 'components/Header'
+          }
+        }
+      })
+    }
   }
 }

@@ -1,13 +1,16 @@
 <template>
   <div class="container">
-    <div>
+    <div class="contents">
       <logo />
+
       <h1 class="title">
         denver-world-frontend-nuxt
       </h1>
+
       <h2 class="subtitle">
         My stylish Nuxt.js project
       </h2>
+
       <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">
           Documentation
@@ -16,7 +19,9 @@
           GitHub
         </a>
       </div>
+      <!-- // links -->
     </div>
+    <!-- // contents -->
   </div>
 </template>
 

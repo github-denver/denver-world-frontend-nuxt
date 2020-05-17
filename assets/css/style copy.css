@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+/* ---------- ---------- ---------- ---------- ----------
+최종 수정일 : 9999.99.99
+
+알림 :
+---------- ---------- ---------- ---------- ---------- */
+
+/* style
+---------- ---------- ---------- ---------- ---------- */
+
+.grp_message {
+  margin-top: 10px;
+}
+
+.button_g2 {
+  width: 100%;
+  padding: 13px 0;
+  border: 1px solid #0074c2;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  background-color: transparent;
+  text-align: center;
+}

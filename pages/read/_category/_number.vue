@@ -11,34 +11,49 @@
       </div>
       <!-- // grp_message -->
 
-      <div v-if="!loading && posts.length === 0" class="grp_message">
-        <p class="txt_message">글이 존재하지 않습니다.</p>
-      </div>
-      <!-- // grp_message -->
+      <div v-if="post" class="grp_view read">
+        <div class="view_head outer_cell">
+          <Picture :attribute="{ authorized: '', user: '', picture: post[0].picture, state: 'board' }" />
 
-      <ul v-if="!loading" class="list_gallery">
-        <li v-for="(post, index) in posts" :key="index">
-          <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="link_gallery">
-            <div class="thumbnail_g" :style="{ 'padding-top': '56.25%', 'background-image': 'url(http://localhost:4000/uploads/' + post.thumbnail + ')', 'background-position': '50% 50%' }">
-              <div class="dimmed_g">
-                <div class="subject_g">{{ post.subject }}</div>
-              </div>
+          <div class="inner_head inner_cell">
+            <span class="tit_l">{{ post[0].subject }}</span>
+
+            <div class="info_l">
+              <span class="txt_l"><span class="screen_out">작성자</span> {{ post[0].name }}</span>
+              <span class="txt_l"><span class="screen_out">등록일</span> {{ post[0].regdate | moment('YY.MM.DD') }}</span>
+              <span class="txt_l"><span class="screen_out">조회수</span> {{ post[0].count }}</span>
             </div>
-          </nuxt-link>
-        </li>
-      </ul>
+            <!-- // info_l -->
+          </div>
+          <!-- // inner_head -->
+        </div>
+        <!-- // view_head -->
+
+        <div class="view_cont">
+          <div class="ql-container ql-snow">
+            <div class="ql-editor">{{ post[0].content }}</div>
+          </div>
+
+          <client-only>
+            <vue-editor></vue-editor>
+          </client-only>
+        </div>
+        <!-- // view_cont -->
+      </div>
+      <!-- // grp_view -->
 
       <div class="grp_btn">
-        <div class="inner_half">&nbsp;</div>
         <div class="inner_half">
-          <nuxt-link :to="{ name: 'create-category', params: { category: information.category } }" class="link_g link_action">글쓰기</nuxt-link>
+          <nuxt-link v-if="false" :to="{ name: 'list-category', params: { category: information.category }, query: { select: '', keyword: '' } }" class="link_g">목록으로</nuxt-link>
+          <nuxt-link v-else :to="{ name: 'list-category', params: { category: information.category } }" class="link_g">목록으로</nuxt-link>
+        </div>
+
+        <div class="inner_half">
+          <nuxt-link :to="{ name: 'index' }" class="link_g link_action">수정하기</nuxt-link>
+          <button type="button" class="btn_g btn_delete" @click="onDelete">삭제하기</button>
         </div>
       </div>
       <!-- // grp_btn -->
-
-      <Pagination :service="information.service" :category="information.category" />
-
-      <Search :service="information.service" :category="information.category" :number="information.number" />
     </div>
     <!-- // contents -->
   </div>
@@ -46,23 +61,21 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-import Pagination from '~/components/Pagination'
-import Search from '~/components/Search'
+import Picture from '~/components/Picture'
 
 export default {
   components: {
-    Pagination,
-    Search
+    Picture
   },
   async fetch() {
-    console.log('[_category.vue] fetch() → this.$route: ', this.$route)
+    console.log('[_number.vue] fetch() → this.$route: ', this.$route)
 
     this.information.category = this.$route.params.category ? this.$route.params.category : this.$route.name
     this.information.number = this.$route.params.number ? this.$route.params.number : 1
 
-    await this.fetchPostList({
+    await this.fetchPost({
       category: this.information.category,
       number: this.information.number,
       select: '',
@@ -70,14 +83,14 @@ export default {
     })
       .then((response) => {
         this.loading = false
-        console.log('[_category.vue] fetch() → this.loading: ', this.loading)
+        console.log('[_number.vue] fetch() → this.loading: ', this.loading)
       })
       .catch((error) => {
         alert(error)
 
         console.error(error)
 
-        console.log('[_category.vue] fetch() → error.response: ', error.response)
+        console.log('[_number.vue] fetch() → error.response: ', error.response)
 
         // this.$router.back()
       })
@@ -193,31 +206,31 @@ export default {
     }
   },
   computed: {
-    ...mapState(['posts', 'search'])
+    ...mapState(['post', 'search'])
   },
   created() {
-    console.log('[_category.vue] created() → this.$route: ', this.$route)
+    console.log('2. [_number.vue] created() → this.$route: ', this.$route)
 
     this.information.category = this.$route.params.category
 
     this.onChange()
   },
   methods: {
-    ...mapActions(['fetchPostList', 'searchInfo']),
+    ...mapActions(['fetchPost', 'searchInfo']),
     onChange() {
       const navigation = this.navigation
-      console.log('[_category.vue] methods() → navigation: ', navigation)
+      console.log('[_number.vue] methods() → navigation: ', navigation)
 
       for (const i in navigation) {
         for (const j in navigation[i].optgroup.option) {
           if (this.information.category === navigation[i].optgroup.option[j].value) {
-            console.log('[_category.vue] methods() → this.information.category: ', this.information.category)
+            console.log('[_number.vue] methods() → this.information.category: ', this.information.category)
 
             this.information.select.option.text = navigation[i].optgroup.option[j].text
-            console.log('[_category.vue] this.information.select.option.text: ', this.information.select.option.text)
+            console.log('[_number.vue] this.information.select.option.text: ', this.information.select.option.text)
 
             this.information.service = navigation[i].optgroup.option[j].service
-            console.log('[_category.vue] this.information.service: ', this.information.service)
+            console.log('[_number.vue] this.information.service: ', this.information.service)
 
             break
           }
@@ -225,6 +238,37 @@ export default {
 
         break
       }
+    },
+    onDelete() {
+      const category = this.category
+      console.log('category: ', category)
+
+      /*
+      const number = 0
+
+      api
+        .get(`/api/board/${category}/delete/${number}`)
+        .then((response) => {
+          alert('게시물이 삭제됐어요!')
+
+          this.$router.push({
+            name: this.$route.params.service === 'notice' || this.$route.params.service === 'talk' ? 'PostList' : 'GalleryList',
+            params: {
+              service: response.data.service,
+              number: '1'
+            }
+          })
+        })
+        .catch((error) => {
+          // console.log(error.response)
+
+          if (error.response.status === 401) {
+            // UnAuthorized
+            alert('로그인이 필요해요!')
+          } else {
+            // alert(error.response.data.message)
+          }
+        }) */
     }
   }
   /* validate({ params }) {

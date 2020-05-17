@@ -1,14 +1,17 @@
 <template>
   <div class="grp_menu">
-    <div class="inner_scroll">
+    <div class="inner_menu">
       <Profile />
-      <Gnb />
 
-      <button type="button" class="btn_global btn_close" @click="onHamburger">
-        <span class="ico_global ico_close">주메뉴 닫기</span>
+      <Gnb @parentHamburger="onHamburger" />
+
+      <button type="button" class="btn_g btn_close" @click="onHamburger">
+        <span class="ico_g ico_close">주메뉴 닫기</span>
       </button>
     </div>
+    <!-- // inner_menu -->
   </div>
+  <!-- // grp_menu -->
 </template>
 
 <script>
@@ -28,5 +31,3 @@ export default {
   }
 }
 </script>
-
-<style></style>

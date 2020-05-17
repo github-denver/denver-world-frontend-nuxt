@@ -17,7 +17,7 @@
   text-indent: -9999px;
 }
 
-.inner_global {
+.inner_g {
   position: relative;
   min-width: 320px;
   max-width: 640px;
@@ -47,7 +47,7 @@
   vertical-align: middle;
 }
 
-.ico_global {
+.ico_g {
   display: inline-block;
   overflow: hidden;
   width: 30px;
@@ -55,14 +55,39 @@
   font-size: 1px;
   line-height: 0;
   color: transparent;
-  background-image: url(about:blank);
+  background-image: url(~@/assets/images/ico_global.png);
   background-repeat: no-repeat;
-  background-size: auto auto;
-  background-color: #ff0000;
+  background-size: 160px auto;
   vertical-align: middle;
 }
 
-.btn_global {
+.ico_profile {
+  background-position: -35px 0;
+}
+
+.ico_logout {
+  background-position: -105px 0;
+}
+
+.ico_login {
+  background-position: -70px 0;
+}
+
+.ico_join {
+  background-position: -105px -35px;
+}
+
+.ico_close {
+  background-position: -35px -35px;
+}
+
+.ico_opt {
+  width: 14px;
+  height: 14px;
+  background-position: 0 -35px;
+}
+
+.btn_g {
   display: inline-block;
   border: 0 none;
   font-family: sans-serif;
@@ -72,9 +97,20 @@
   cursor: pointer;
 }
 
-/**/
+.btn_action {
+  color: #fff !important;
+  border-color: transparent;
+  background-color: #0074c2;
+}
 
-.link_global {
+.btn_delete,
+.btn_search {
+  color: #fff !important;
+  border-color: transparent;
+  background-color: #000;
+}
+
+.link_g {
   display: block;
   padding: 13px 0;
   border: 1px solid #0074c2;
@@ -84,20 +120,20 @@
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
-  color: #0074c2;
+  color: #0074c2 !important;
   background-color: #fff;
   text-align: center;
 }
 
 .link_action {
-  color: #fff;
+  color: #fff !important;
   border-color: transparent;
   background-color: #0074c2;
 }
 
 .link_delete,
 .link_search {
-  color: #fff;
+  color: #fff !important;
   border-color: transparent;
   background-color: #000;
 }

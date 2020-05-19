@@ -16,7 +16,7 @@
       </div>
       <!-- // grp_message -->
 
-      <ul v-if="!loading" class="list_gallery">
+      <ul v-if="!loading && information.service === 'gallery'" class="list_gallery">
         <li v-for="(post, index) in posts" :key="index">
           <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="link_gallery">
             <div class="thumbnail_g" :style="{ 'padding-top': '56.25%', 'background-image': 'url(http://localhost:4000/uploads/' + post.thumbnail + ')', 'background-position': '50% 50%' }">
@@ -24,6 +24,26 @@
                 <div class="subject_g">{{ post.subject }}</div>
               </div>
             </div>
+          </nuxt-link>
+        </li>
+      </ul>
+
+      <ul v-if="!loading && information.service === 'board'" class="list_board">
+        <li v-for="post in posts" :key="post.number">
+          <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="link_board outer_cell">
+            <Picture :attribute="{ picture: post.picture, state: 'board' }" />
+
+            <div class="inner_head inner_cell">
+              <span class="inner_head">{{ post.subject }}</span>
+
+              <div class="info_l">
+                <span class="txt_l"><span class="screen_out">작성자</span> {{ post.name }}</span>
+                <span class="txt_l"><span class="screen_out">등록일</span> {{ post.regdate | moment('YY.MM.DD') }}</span>
+                <span class="txt_l"><span class="screen_out">조회수</span> {{ post.count }}</span>
+              </div>
+              <!-- // info_l -->
+            </div>
+            <!-- // inner_head -->
           </nuxt-link>
         </li>
       </ul>
@@ -48,11 +68,13 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
+import Picture from '~/components/Picture'
 import Pagination from '~/components/Pagination'
 import Search from '~/components/Search'
 
 export default {
   components: {
+    Picture,
     Pagination,
     Search
   },
@@ -154,10 +176,12 @@ export default {
           optgroup: {
             text: '자료실',
             value: 'library',
+            service: 'gallery',
             option: [
               {
                 text: '음악',
-                value: 'music'
+                value: 'music',
+                service: 'gallery'
               }
             ]
           }
@@ -205,25 +229,33 @@ export default {
   methods: {
     ...mapActions(['fetchPostList', 'searchInfo']),
     onChange() {
+      console.log('★ 1. [_category.vue] methods() → this.information.category: ', this.information.category)
+
       const navigation = this.navigation
-      console.log('[_category.vue] methods() → navigation: ', navigation)
+      // console.log('★ 2. [_category.vue] methods() → navigation: ', navigation)
 
       for (const i in navigation) {
+        console.log('★ 3. navigation[i].optgroup.option: ', navigation[i].optgroup.option)
+
         for (const j in navigation[i].optgroup.option) {
+          console.log('★ 4. navigation[i].optgroup.option[j].value: ', navigation[i].optgroup.option[j].value)
+
           if (this.information.category === navigation[i].optgroup.option[j].value) {
-            console.log('[_category.vue] methods() → this.information.category: ', this.information.category)
+            console.log('☆ 5. [_category.vue] methods() → this.information.category: ', this.information.category)
 
             this.information.select.option.text = navigation[i].optgroup.option[j].text
-            console.log('[_category.vue] this.information.select.option.text: ', this.information.select.option.text)
+            console.log('☆ 6. [_category.vue] this.information.select.option.text: ', this.information.select.option.text)
 
             this.information.service = navigation[i].optgroup.option[j].service
-            console.log('[_category.vue] this.information.service: ', this.information.service)
+            console.log('☆ 7. [_category.vue] this.information.service: ', this.information.service)
 
-            break
+            // break
+
+            return
           }
         }
 
-        break
+        // break
       }
     }
   }

@@ -1,6 +1,34 @@
 <template>
   <div class="container">
-    <div class="contents">
+    <div v-if="post && information.service === 'gallery'" class="wrap_visual">
+      <div class="inner_g">
+        <div class="thumbnail_visual" :style="{ 'background-image': `url('${path}/${uploads}/${post[0].thumbnail}')`, 'background-position': '50% 50%' }"></div>
+
+        <div class="grp_view">
+          <div class="view_head outer_cell">
+            <Picture :attribute="{ authorized: isAuthorized, user: post[0], picture: post[0].picture, state: 'board' }" />
+
+            <div class="inner_head inner_cell">
+              <span class="tit_l">{{ post[0].subject }}</span>
+
+              <div class="info_l">
+                <span class="txt_l"><span class="screen_out">작성자</span> {{ post[0].name }}</span>
+                <span class="txt_l"><span class="screen_out">등록일</span> {{ post[0].regdate | moment('YY.MM.DD') }}</span>
+                <span class="txt_l"><span class="screen_out">조회수</span> {{ post[0].count }}</span>
+              </div>
+              <!-- // info_l -->
+            </div>
+            <!-- // inner_head -->
+          </div>
+          <!-- // view_head -->
+        </div>
+        <!-- // grp_view -->
+      </div>
+      <!-- // inner_g -->
+    </div>
+    <!-- // wrap_visual -->
+
+    <div class="contents" :class="classObject">
       <div class="hgrp">
         <nuxt-link :to="{ name: 'list-category', params: { category: information.category } }" class="link_l">{{ information.select.option.text }}</nuxt-link>
       </div>
@@ -61,7 +89,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 import Picture from '~/components/Picture'
 
@@ -167,10 +195,12 @@ export default {
           optgroup: {
             text: '자료실',
             value: 'library',
+            service: 'gallery',
             option: [
               {
                 text: '음악',
-                value: 'music'
+                value: 'music',
+                service: 'gallery'
               }
             ]
           }
@@ -206,7 +236,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['post', 'search'])
+    ...mapState(['post', 'search']),
+    ...mapGetters(['path', 'uploads']),
+    classObject() {
+      return {
+        active: this.information.service === 'gallery',
+        'view-danger': this.information.service === 'gallery'
+      }
+    }
   },
   created() {
     console.log('2. [_number.vue] created() → this.$route: ', this.$route)
@@ -232,11 +269,13 @@ export default {
             this.information.service = navigation[i].optgroup.option[j].service
             console.log('[_number.vue] this.information.service: ', this.information.service)
 
-            break
+            // break
+
+            return
           }
         }
 
-        break
+        // break
       }
     },
     onDelete() {

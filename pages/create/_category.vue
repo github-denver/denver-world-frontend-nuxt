@@ -205,6 +205,7 @@ export default {
           // console.log(error)
         }) */
     }
-  }
+  },
+  middleware: 'isAuthorized'
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="post && information.service === 'gallery'" class="wrap_visual">
+    <div v-if="post" class="wrap_visual">
       <div class="inner_g">
         <div class="thumbnail_visual" :style="{ 'background-image': `url('${path}/${uploads}/${post[0].thumbnail}')`, 'background-position': '50% 50%' }"></div>
 

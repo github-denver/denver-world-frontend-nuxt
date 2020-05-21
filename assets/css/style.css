@@ -538,13 +538,13 @@
   margin-top: 10px;
 }
 
-.grp_view.read .grp_picture {
+.grp_view .grp_picture {
   overflow: hidden;
   float: left;
   margin-right: 10px;
 }
 
-.grp_view.read .view_head {
+.grp_view .view_head {
   width: auto;
 }
 
@@ -728,9 +728,7 @@
   bottom: 0;
   right: 0;
   left: 0;
-  width: auto;
-  padding: 10px;
-  color: #fff;
+  padding: 0 10px;
   background: rgba(0, 0, 0, 0);
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.5)));
@@ -741,16 +739,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
 }
 
-.wrap_visual .view_head {
-  width: auto;
-}
-
-.wrap_visual .grp_picture {
-  overflow: hidden;
-  float: left;
-  margin-right: 10px;
-}
-
+.wrap_visual .tit_l,
 .wrap_visual .txt_l {
   color: #fff;
 }

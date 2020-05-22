@@ -234,25 +234,25 @@ export default {
   methods: {
     ...mapActions(['fetchPostList', 'searchInfo']),
     onChange() {
-      console.log('★ 1. [_category.vue] methods() → this.information.category: ', this.information.category)
+      console.log('1. [_category.vue] methods() → this.information.category: ', this.information.category)
 
       const navigation = this.navigation
-      // console.log('★ 2. [_category.vue] methods() → navigation: ', navigation)
+      // console.log('2. [_category.vue] methods() → navigation: ', navigation)
 
       for (const i in navigation) {
-        console.log('★ 3. navigation[i].optgroup.option: ', navigation[i].optgroup.option)
+        console.log('3. navigation[i].optgroup.option: ', navigation[i].optgroup.option)
 
         for (const j in navigation[i].optgroup.option) {
-          console.log('★ 4. navigation[i].optgroup.option[j].value: ', navigation[i].optgroup.option[j].value)
+          console.log('4. navigation[i].optgroup.option[j].value: ', navigation[i].optgroup.option[j].value)
 
           if (this.information.category === navigation[i].optgroup.option[j].value) {
-            console.log('☆ 5. [_category.vue] methods() → this.information.category: ', this.information.category)
+            console.log('5. [_category.vue] methods() → this.information.category: ', this.information.category)
 
             this.information.select.option.text = navigation[i].optgroup.option[j].text
-            console.log('☆ 6. [_category.vue] this.information.select.option.text: ', this.information.select.option.text)
+            console.log('6. [_category.vue] this.information.select.option.text: ', this.information.select.option.text)
 
             this.information.service = navigation[i].optgroup.option[j].service
-            console.log('☆ 7. [_category.vue] this.information.service: ', this.information.service)
+            console.log('7. [_category.vue] this.information.service: ', this.information.service)
 
             // break
 

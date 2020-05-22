@@ -9,7 +9,7 @@
 
       <ul v-if="isAuthorized" class="list_util">
         <li>
-          <nuxt-link :to="{ name: 'member-login' }" class="link_util"><span class="ico_g ico_profile">내 정보</span></nuxt-link>
+          <nuxt-link :to="{ name: 'member-update' }" class="link_util"><span class="ico_g ico_profile">내 정보</span></nuxt-link>
         </li>
         <li>
           <button type="button" class="btn_g" @click="onSignout">

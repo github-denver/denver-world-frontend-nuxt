@@ -4,7 +4,9 @@
 
     <div class="inner_welcome">
       <strong class="tit_welcome">로그인</strong>
-      <p class="desc_welcome">로그인해주세요!</p>
+
+      <!-- <p class="desc_welcome">로그인해주세요!</p> -->
+      <p class="desc_welcome">{{ errorMessage ? errorMessage : '로그인해주세요!' }}</p>
 
       <form method="post" novalidate @submit.prevent="submit">
         <Input v-model="information.member.create.id" :attribute="{ type: 'text', id: 'id', className: 'full', title: '아이디 *' }" />
@@ -29,7 +31,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import Input from '~/components/Input'
 
@@ -80,6 +82,12 @@ export default {
         }
       }
     }
+  },
+  computed: {
+    ...mapState(['errorMessage'])
+  },
+  created() {
+    console.log('this.errorMessage: ', this.errorMessage)
   },
   methods: {
     ...mapActions(['signin']),

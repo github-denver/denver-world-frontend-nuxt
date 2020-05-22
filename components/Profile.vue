@@ -21,8 +21,8 @@ export default {
     Picture
   },
   computed: {
-    ...mapGetters(['isAuthorized']),
-    ...mapState(['user'])
+    ...mapState(['user']),
+    ...mapGetters(['isAuthorized'])
   }
 }
 </script>

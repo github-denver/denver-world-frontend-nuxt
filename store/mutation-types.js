@@ -1,3 +1,4 @@
+export const ERROR_MESSAGE = 'ERROR_MESSAGE'
 export const FETCH_POST_LIST = 'FETCH_POST_LIST'
 export const SEARCH_INFO = 'SEARCH_INFO'
 export const FETCH_POST = 'FETCH_POST'

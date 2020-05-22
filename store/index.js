@@ -1,5 +1,5 @@
 // import Cookies from 'js-cookie'
-import { FETCH_POST_LIST, SEARCH_INFO, FETCH_POST, SET_ACCESS_TOKEN, SET_MY_INFO, DESTROY_ACCESS_TOKEN, DESTROY_MY_INFO } from './mutation-types'
+import { ERROR_MESSAGE, FETCH_POST_LIST, SEARCH_INFO, FETCH_POST, SET_ACCESS_TOKEN, SET_MY_INFO, DESTROY_ACCESS_TOKEN, DESTROY_MY_INFO } from './mutation-types'
 
 export const state = () => ({
   posts: [],
@@ -10,14 +10,15 @@ export const state = () => ({
   },
   post: null,
   accessToken: '',
-  user: null
+  user: null,
+  errorMessage: ''
 })
 
 export const getters = {
   isAuthorized(state) {
     const { accessToken, user } = state
     console.log('[getters.js] isAuthorized () → accessToken: ', accessToken)
-    console.log('[getters.js] isAuthorized () → user: ', user)
+    // console.log('[getters.js] isAuthorized () → user: ', user)
 
     const result = accessToken.length > 0 && !!user
     console.log('[getters.js] isAuthorized () → result: ', result)
@@ -33,6 +34,14 @@ export const getters = {
 }
 
 export const mutations = {
+  [ERROR_MESSAGE](state, payload) {
+    console.log('[mutations.js] [ERROR_MESSAGE] → payload: ', payload)
+
+    state.errorMessage = payload.message
+    console.log('[mutations.js] [ERROR_MESSAGE] → state.errorMessage: ', state.errorMessage)
+
+    console.log()
+  },
   [FETCH_POST_LIST](state, payload) {
     console.log('[mutations.js] [FETCH_POST_LIST] → payload: ', payload)
 
@@ -46,7 +55,7 @@ export const mutations = {
   },
   [FETCH_POST](state, post) {
     console.log('[mutations.js] [FETCH_POST] → state.post: ', state.post)
-    console.log('[mutations.js] [FETCH_POST] → post: ', post)
+    // console.log('[mutations.js] [FETCH_POST] → post: ', post)
 
     state.post = post
   },
@@ -60,7 +69,7 @@ export const mutations = {
     }
   },
   [SET_MY_INFO](state, user) {
-    console.log('[mutations.js] [SET_MY_INFO] → user: ', user)
+    // console.log('[mutations.js] [SET_MY_INFO] → user: ', user)
 
     if (user) {
       state.user = user
@@ -124,7 +133,7 @@ export const actions = {
 
     return this.$axios.get(`/api/board/${category}/view/${number}`).then((response) => {
       const { result } = response.data
-      console.log('[actions.js] fetchPost () → result: ', result)
+      // console.log('[actions.js] fetchPost () → result: ', result)
 
       commit(FETCH_POST, result)
       commit(SEARCH_INFO, { select, keyword })
@@ -136,7 +145,7 @@ export const actions = {
     commit(SET_ACCESS_TOKEN, token)
 
     return this.$axios.get('/api/me', { params: { accessToken: token } }).then((response) => {
-      console.log('[actions.js] signinByToken () → response: ', response)
+      // console.log('[actions.js] signinByToken () → response: ', response)
 
       commit(SET_MY_INFO, response.data.user2)
     })

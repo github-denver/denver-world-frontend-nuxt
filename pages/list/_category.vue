@@ -16,37 +16,42 @@
       </div>
       <!-- // grp_message -->
 
-      <ul v-if="!loading && information.service === 'gallery'" class="list_gallery">
-        <li v-for="(post, index) in posts" :key="index">
-          <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="link_gallery">
-            <div class="thumbnail_g" :style="{ 'padding-top': '56.25%', 'background-image': 'url(http://localhost:4000/uploads/' + post.thumbnail + ')', 'background-position': '50% 50%' }">
-              <div class="dimmed_g">
-                <div class="subject_g">{{ post.subject }}</div>
+      <fragment v-if="!loading">
+        <ul v-if="information.service === 'gallery'" class="list_gallery">
+          <li v-for="(post, index) in posts" :key="index">
+            <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="link_gallery">
+              <div class="thumbnail_g" :style="{ 'padding-top': '56.25%', 'background-image': 'url(http://localhost:4000/uploads/' + post.thumbnail + ')', 'background-position': '50% 50%' }">
+                <div class="dimmed_g">
+                  <div class="subject_g">{{ post.subject }}</div>
+                </div>
               </div>
-            </div>
-          </nuxt-link>
-        </li>
-      </ul>
+            </nuxt-link>
+          </li>
+        </ul>
 
-      <ul v-if="!loading && information.service === 'board'" class="list_board">
-        <li v-for="post in posts" :key="post.number">
-          <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="link_board outer_cell">
-            <Picture :attribute="{ picture: post.picture, state: 'board' }" />
+        <ul v-if="information.service === 'board'" class="list_board">
+          <li v-for="post in posts" :key="post.number">
+            <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="grp_view">
+              <div class="view_head outer_cell">
+                <Picture :attribute="{ picture: post.picture, state: 'board' }" />
 
-            <div class="inner_head inner_cell">
-              <span class="inner_head">{{ post.subject }}</span>
+                <div class="inner_head inner_cell">
+                  <span class="inner_head">{{ post.subject }}</span>
 
-              <div class="info_l">
-                <span class="txt_l"><span class="screen_out">작성자</span> {{ post.name }}</span>
-                <span class="txt_l"><span class="screen_out">등록일</span> {{ post.regdate | moment('YY.MM.DD') }}</span>
-                <span class="txt_l"><span class="screen_out">조회수</span> {{ post.count }}</span>
+                  <div class="info_l">
+                    <span class="txt_l"><span class="screen_out">작성자</span> {{ post.name }}</span>
+                    <span class="txt_l"><span class="screen_out">등록일</span> {{ post.regdate | moment('YY.MM.DD') }}</span>
+                    <span class="txt_l"><span class="screen_out">조회수</span> {{ post.count }}</span>
+                  </div>
+                  <!-- // info_l -->
+                </div>
+                <!-- // inner_head -->
               </div>
-              <!-- // info_l -->
-            </div>
-            <!-- // inner_head -->
-          </nuxt-link>
-        </li>
-      </ul>
+              <!-- // view_head -->
+            </nuxt-link>
+          </li>
+        </ul>
+      </fragment>
 
       <div class="grp_btn">
         <div class="inner_half">&nbsp;</div>
@@ -220,7 +225,7 @@ export default {
     ...mapState(['posts', 'search'])
   },
   created() {
-    console.log('[_category.vue] created() → this.$route: ', this.$route)
+    // console.log('[_category.vue] created() → this.$route: ', this.$route)
 
     this.information.category = this.$route.params.category
 

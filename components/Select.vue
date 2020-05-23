@@ -82,11 +82,13 @@ export default {
             this.information.service = navigation[i].optgroup.option[j].service
             console.log('[Select.vue] this.information.service: ', this.information.service)
 
-            break
+            // break
+
+            return
           }
         }
 
-        break
+        // break
       }
 
       console.log('[Select.vue] this.information.select.option.text: ', this.information.select.option.text)

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="contents">
       <div class="hgrp">
-        <nuxt-link :to="{ name: 'list-category', params: { category: information.category } }" class="link_l">{{ information.select.option.text }}</nuxt-link>
+        <nuxt-link :to="{ name: 'list-category-number', params: { category: information.category } }" class="link_l">{{ information.select.option.text }}</nuxt-link>
       </div>
       <!-- // hgrp -->
 
@@ -31,7 +31,7 @@
 
         <ul v-if="information.service === 'board'" class="list_board">
           <li v-for="post in posts" :key="post.number">
-            <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="grp_view">
+            <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="link_board grp_view">
               <div class="view_head outer_cell">
                 <Picture :attribute="{ picture: post.picture, state: 'board' }" />
 
@@ -63,7 +63,7 @@
 
       <Pagination :service="information.service" :category="information.category" />
 
-      <Search :service="information.service" :category="information.category" :number="information.number" />
+      <Search :service="information.service" :category="information.category" :number="parseInt(information.number)" />
     </div>
     <!-- // contents -->
   </div>
@@ -240,19 +240,15 @@ export default {
       // console.log('2. [_category.vue] methods() → navigation: ', navigation)
 
       for (const i in navigation) {
-        console.log('3. navigation[i].optgroup.option: ', navigation[i].optgroup.option)
-
         for (const j in navigation[i].optgroup.option) {
-          console.log('4. navigation[i].optgroup.option[j].value: ', navigation[i].optgroup.option[j].value)
-
           if (this.information.category === navigation[i].optgroup.option[j].value) {
-            console.log('5. [_category.vue] methods() → this.information.category: ', this.information.category)
+            console.log('[_category.vue] methods() → this.information.category: ', this.information.category)
 
             this.information.select.option.text = navigation[i].optgroup.option[j].text
-            console.log('6. [_category.vue] this.information.select.option.text: ', this.information.select.option.text)
+            console.log('[_category.vue] this.information.select.option.text: ', this.information.select.option.text)
 
             this.information.service = navigation[i].optgroup.option[j].service
-            console.log('7. [_category.vue] this.information.service: ', this.information.service)
+            console.log('[_category.vue] this.information.service: ', this.information.service)
 
             // break
 

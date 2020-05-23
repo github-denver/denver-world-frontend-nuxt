@@ -1,28 +1,28 @@
 <template>
   <ul v-if="search.keyword" class="list_pagination">
     <li v-if="pagination.current > 1">
-      <nuxt-link :to="{ name: 'list-category', params: { service: service, category: category, number: (pagination.current - 1).toString() }, query: { select: search.select, keyword: search.keyword } }" class="link_pagination">이전</nuxt-link>
+      <nuxt-link :to="{ name: 'list-category-number', params: { service: service, category: category, number: (pagination.current - 1).toString() }, query: { select: search.select, keyword: search.keyword } }" class="link_pagination">이전</nuxt-link>
     </li>
     <li v-for="(i, index) in paginate" :key="index">
-      <nuxt-link v-if="pagination.current === i" :to="{ name: 'list-category', params: { service: service, category: category, number: i.toString() }, query: { select: search.select, keyword: search.keyword } }" class="link_pagination current">{{ i }}</nuxt-link>
-      <nuxt-link v-else :to="{ name: 'list-category', params: { service: service, category: category, number: i.toString() }, query: { select: search.select, keyword: search.keyword } }" class="link_pagination">{{ i }}</nuxt-link>
+      <nuxt-link v-if="pagination.current === i" :to="{ name: 'list-category-number', params: { service: service, category: category, number: i.toString() }, query: { select: search.select, keyword: search.keyword } }" class="link_pagination current">{{ i }}</nuxt-link>
+      <nuxt-link v-else :to="{ name: 'list-category-number', params: { service: service, category: category, number: i.toString() }, query: { select: search.select, keyword: search.keyword } }" class="link_pagination">{{ i }}</nuxt-link>
     </li>
     <li v-if="pagination.current < pagination.total">
-      <nuxt-link :to="{ name: 'list-category', params: { service: service, category: category, number: (pagination.current + 1).toString() }, query: { select: search.select, keyword: search.keyword } }" class="link_pagination">다음</nuxt-link>
+      <nuxt-link :to="{ name: 'list-category-number', params: { service: service, category: category, number: (pagination.current + 1).toString() }, query: { select: search.select, keyword: search.keyword } }" class="link_pagination">다음</nuxt-link>
     </li>
   </ul>
 
   <ul v-else class="list_pagination">
     <li v-if="pagination.current > 1">
-      <nuxt-link :to="{ name: 'list-category', params: { service: service, category: category, number: (pagination.current - 1).toString() } }" class="link_pagination">이전</nuxt-link>
+      <nuxt-link :to="{ name: 'list-category-number', params: { service: service, category: category, number: (pagination.current - 1).toString() } }" class="link_pagination">이전</nuxt-link>
     </li>
     <li v-for="(i, index) in paginate" :key="index">
-      <nuxt-link v-if="pagination.current === i" :key="i" :to="{ name: 'list-category', params: { service: service, category: category, number: i.toString() } }" class="link_pagination current">{{ i }}</nuxt-link>
+      <nuxt-link v-if="pagination.current === i" :key="i" :to="{ name: 'list-category-number', params: { service: service, category: category, number: i.toString() } }" class="link_pagination current">{{ i }}</nuxt-link>
 
-      <nuxt-link v-else :to="{ name: 'list-category', params: { service: service, category: category, number: i.toString() } }" class="link_pagination">{{ i }}</nuxt-link>
+      <nuxt-link v-else :to="{ name: 'list-category-number', params: { service: service, category: category, number: i.toString() } }" class="link_pagination">{{ i }}</nuxt-link>
     </li>
     <li v-if="pagination.current < pagination.total">
-      <nuxt-link :to="{ name: 'list-category', params: { service: service, category: category, number: (pagination.current + 1).toString() } }" class="link_pagination">다음</nuxt-link>
+      <nuxt-link :to="{ name: 'list-category-number', params: { service: service, category: category, number: (pagination.current + 1).toString() } }" class="link_pagination">다음</nuxt-link>
     </li>
   </ul>
 </template>
@@ -40,6 +40,11 @@ export default {
     category: {
       type: String,
       required: true
+    },
+    number: {
+      type: Number,
+      default: 0,
+      required: false
     }
   },
   computed: {

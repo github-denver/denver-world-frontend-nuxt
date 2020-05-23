@@ -33,7 +33,7 @@
     </div>
     <!-- // wrap_visual -->
 
-    <div v-if="attribute.post" class="contents type_gallery">
+    <div v-if="attribute.post" class="contents">
       <div class="grp_view">
         <div class="view_cont">
           <div class="ql-container ql-snow">
@@ -52,8 +52,8 @@
 
       <div class="grp_btn">
         <div class="inner_half">
-          <nuxt-link v-if="false" :to="{ name: 'list-category', params: { category: attribute.category }, query: { select: '', keyword: '' } }" class="link_g">목록으로</nuxt-link>
-          <nuxt-link v-else :to="{ name: 'list-category', params: { category: attribute.category } }" class="link_g">목록으로</nuxt-link>
+          <nuxt-link v-if="false" :to="{ name: 'list-category-number', params: { category: attribute.category }, query: { select: '', keyword: '' } }" class="link_g">목록으로</nuxt-link>
+          <nuxt-link v-else :to="{ name: 'list-category-number', params: { category: attribute.category } }" class="link_g">목록으로</nuxt-link>
         </div>
 
         <div class="inner_half">

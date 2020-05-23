@@ -35,7 +35,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/vue-fragment', '~/plugins/vue-moment', { src: '~/plugins/vue2-editor', mode: 'client' }],
+  plugins: ['~/plugins/vue-fragment', '~/plugins/vue-moment', { src: '~/plugins/vue2-editor', mode: 'client' }, { src: '~/plugins/vue-owl-carousel', mode: 'client' }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -81,7 +81,7 @@ module.exports = {
   router: {
     middleware: 'init',
     extendRoutes(routes, resolve) {
-      const except = ['member-welcome', 'member-create', 'member-login']
+      const except = ['member-welcome', 'member-create', 'member-login', 'member-update']
 
       routes.forEach((route, index) => {
         for (let i = 0; i < except.length; i++) {

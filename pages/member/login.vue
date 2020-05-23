@@ -131,6 +131,7 @@ export default {
           // console.log('[Login.vue] error.response.data: ', error.response.data)
         })
     }
-  }
+  },
+  middleware: 'isUnauthorized'
 }
 </script>

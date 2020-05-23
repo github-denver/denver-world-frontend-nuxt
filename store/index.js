@@ -139,6 +139,12 @@ export const actions = {
       commit(SEARCH_INFO, { select, keyword })
     })
   },
+  deletePost({ commit }, payload) {
+    const { category, number } = payload
+    console.log('[actions.js] deletePost () → payload: ', payload)
+
+    return this.$axios.get(`/api/board/${category}/delete/${number}`)
+  },
   signinByToken({ commit }, token) {
     console.log('[actions.js] signinByToken () → token: ', token)
 
@@ -184,18 +190,31 @@ export const actions = {
       commit(DESTROY_MY_INFO)
     })
   },
-
   searchInfo({ commit }, payload) {
     const { select, keyword } = payload
 
     commit(SEARCH_INFO, { select, keyword })
   },
+  createProfile(payload) {
+    return this.$axios.post('/api/register', payload)
+
+    /* .then((response) => {
+      alert('회원가입에 성공했어요!')
+
+      // console.log('[MemberCreate.vue] 회원가입에 성공했어요!')
+      // console.log('[MemberCreate.vue] response: ', response)
+
+      this.$router.push({ name: 'MemberLogin' })
+    }) */
+  },
   updateProfile({ commit }, payload) {
+    console.log('[actions.js] updateProfile () → payload: ', payload)
+
     return this.$axios
       .post('/api/profile', payload)
       .then((response) => {
         const { accessToken } = response.data
-        // console.log('[actions.js] updateProfile () → accessToken: ', accessToken)
+        console.log('[actions.js] updateProfile () → accessToken: ', accessToken)
 
         commit(SET_ACCESS_TOKEN, accessToken)
 
@@ -206,9 +225,14 @@ export const actions = {
         })
       })
       .then((response) => {
-        // console.log('[actions.js] signin () → [SET_MY_INFO] > response: ', response)
+        console.log('[actions.js] updateProfile () → response: ', response)
 
         commit(SET_MY_INFO, response.data.user2)
       })
+  },
+  createWrite({ commit }, payload) {
+    console.log('[actions.js] createWrite () → payload: ', payload)
+
+    return this.$axios.post(`/api/board/${payload.get('category')}/write`, payload)
   }
 }

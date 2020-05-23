@@ -208,7 +208,7 @@ export default {
     this.onChange()
   },
   methods: {
-    ...mapActions(['fetchPost', 'searchInfo']),
+    ...mapActions(['fetchPost', 'deletePost', 'searchInfo']),
     onChange() {
       const navigation = this.navigation
       // console.log('[_number.vue] methods() → navigation: ', navigation)
@@ -234,8 +234,28 @@ export default {
       }
     },
     onDelete() {
-      const category = this.category
+      const category = this.information.category
       console.log('[_number.vue] onDelete() → category: ', category)
+
+      const number = this.information.number
+      console.log('[_number.vue] onDelete() → number: ', number)
+
+      this.deletePost({ category, number })
+        .then((response) => {
+          alert('게시물이 삭제됐어요!')
+
+          this.$router.push({ name: 'list-category-number', params: { category } })
+        })
+        .catch((error) => {
+          console.log(error.response)
+
+          if (error.response.status === 401) {
+            // UnAuthorized
+            alert('로그인이 필요해요!')
+          } else {
+            alert(error.response.data.message)
+          }
+        })
 
       /*
       const number = 0

@@ -7,7 +7,7 @@
       <p class="desc_welcome">수정할 정보를 입력해주세요!</p>
 
       <form method="post" enctype="multipart/form-data" novalidate @submit.prevent="submit">
-        <Picture :attribute="{ authorized: '', picture: '', className: 'register' }">
+        <Picture :attribute="{ authorized: isAuthorized, picture: information.member.create.picture.result, className: 'register' }">
           <template v-slot:upload>
             <Upload :attribute="{ id: 'picture', icon: 'ico_picture' }" @parentChangePicture="onChangePicture">
               <template v-slot:text>프로필 사진</template>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 import Picture from '~/components/Picture'
 import Upload from '~/components/Upload'
@@ -104,7 +104,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    ...mapGetters(['isAuthorized'])
   },
   created() {
     console.log('[update.vue] created() { .. } → created()에 진입하였습니다.')
@@ -119,12 +120,74 @@ export default {
     console.log('(after) this.information.member2: ', this.information.member2)
   },
   methods: {
-    submit() {
-      console.log('submit')
-    },
+    ...mapActions(['updateProfile']),
     onChangePicture(payload) {
-      this.picture.files = payload.get('files')
-      this.picture.result = payload.get('result')
+      console.log('payload.get("files"): ', payload.get('files'))
+
+      this.information.member.create.picture.files = payload.get('files')
+      this.information.member.create.picture.result = payload.get('result')
+    },
+    submit(payload) {
+      console.log('[update.vue] methods() { .. } → submit → payload: ', payload)
+
+      // const { name, email } = this
+      // console.log('this: ', this)
+
+      // const picture = this.picture.files
+      // console.log('picture: ', picture)
+
+      const name = this.information.member2.name
+      console.log('name: ', name)
+
+      const email = this.information.member2.email
+      console.log('email: ', email)
+
+      const picture = this.information.member.create.picture.files
+      console.log('picture: ', picture)
+
+      // const idCheck = RegExp(/^[A-Za-z0-9_\.\-]{4,12}$/)
+      // const passwordCheck = RegExp(/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/)
+      const nameCheck = RegExp(/^[가-힣a-zA-Z0-9]{2,6}$/)
+      const emailCheck = RegExp(/^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/)
+
+      if (!name || !email) {
+        alert('필수 정보를 입력해주세요!')
+
+        return false
+      }
+
+      if (!nameCheck.test(name)) {
+        alert('닉네임은 한글과 알파벳 / 숫자만 입력 가능하고 2자리 이상 6자리 이하로 입력해 주세요!')
+
+        // this.$refs.name.focus()
+        document.querySelector('#name').focus()
+
+        return false
+      }
+
+      if (!emailCheck.test(email)) {
+        alert('이메일을 바르게 입력해 주세요!')
+
+        // this.$refs.email.focus()
+        document.querySelector('#email').focus()
+
+        return false
+      }
+
+      const formData = new FormData()
+      formData.append('name', name)
+      formData.append('email', email)
+      formData.append('picture', picture)
+
+      this.updateProfile(formData)
+        .then(() => {
+          alert('회원정보 수정에 성공했어요!')
+        })
+        .catch((error) => {
+          alert('회원가입에 실패했어요.. ㅠㅜ')
+
+          console.log(error)
+        })
     }
   }
 }

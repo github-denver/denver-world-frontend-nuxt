@@ -17,7 +17,7 @@
 
       <Input v-model="keyword" :attribute="{ type: 'search', name: 'keyword', id: 'keyword' }" />
 
-      <nuxt-link :to="{ name: 'list-category', params: { service: category }, query: { select: select.value, keyword: keyword } }" class="link_g link_search" @click.native="submit">검색하기</nuxt-link>
+      <nuxt-link :to="{ name: 'list-category-number', params: { service: category }, query: { select: select.value, keyword: keyword } }" class="link_g link_search" @click.native="submit">검색하기</nuxt-link>
     </div>
     <!-- // grp_search -->
   </form>
@@ -42,7 +42,8 @@ export default {
     },
     number: {
       type: Number,
-      required: true
+      default: 0,
+      required: false
     }
   },
   data() {

@@ -19,6 +19,7 @@
     "nuxt": "^2.0.0",
     "vue-fragment": "^1.5.1",
     "vue-moment": "^4.1.0",
+    "vue-owl-carousel": "^2.0.3",
     "vue2-editor": "^2.10.2"
   },
   "devDependencies": {

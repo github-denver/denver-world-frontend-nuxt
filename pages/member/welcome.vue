@@ -22,7 +22,7 @@
 </template>
 
 <script>
-export default {}
+export default {
+  middleware: 'isUnauthorized'
+}
 </script>
-
-<style></style>

@@ -23,7 +23,7 @@
 
         <div class="grp_btn">
           <div class="inner_half">
-            <nuxt-link :to="{ name: 'list-category', params: { category: information.category } }" class="link_g">취소하기</nuxt-link>
+            <nuxt-link :to="{ name: 'list-category-number', params: { category: information.category } }" class="link_g">취소하기</nuxt-link>
           </div>
 
           <div class="inner_half">

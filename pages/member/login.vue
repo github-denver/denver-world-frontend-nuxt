@@ -19,7 +19,7 @@
           </div>
 
           <div class="inner_half">
-            <button type="submit" class="btn_action">로그인하기</button>
+            <button type="submit" class="btn_g btn_action">로그인하기</button>
           </div>
         </div>
         <!-- // group-grp_btn -->
@@ -38,6 +38,29 @@ import Input from '~/components/Input'
 export default {
   components: {
     Input
+  },
+  asyncData(context) {
+    const { from } = context
+
+    if (typeof from !== 'undefined' && from !== null) {
+      const except = ['list-category-number', 'read-category-number']
+      console.log('except: ', except)
+
+      for (let i = 0; i < except.length; i++) {
+        console.log('except[' + i + ']: ', except[i])
+
+        console.log('from.name !== except[' + i + ']: ', from.name === except[i])
+        if (from.name === except[i]) {
+          return {
+            history: true
+          }
+        }
+      }
+    }
+
+    return {
+      history: false
+    }
   },
   data() {
     return {
@@ -79,7 +102,8 @@ export default {
             files: null,
             result: null
           }
-        }
+        },
+        history: null
       }
     }
   },
@@ -113,7 +137,12 @@ export default {
 
           // console.log('[Login.vue] methods() → onSubmit → 메인으로 이동해요!')
 
-          this.$router.push({ name: 'index' })
+          console.log('this.history: ', this.history)
+          if (this.history) {
+            this.$router.go(-1)
+          } else {
+            this.$router.push({ name: 'index' })
+          }
         })
         .catch((error) => {
           if (error.response.status === 401) {

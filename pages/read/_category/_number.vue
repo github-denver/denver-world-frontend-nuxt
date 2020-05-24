@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="type">
     <fragment v-if="!loading">
       <Article
         v-if="information.service === 'gallery'"
@@ -9,6 +9,7 @@
           category: information.category,
           text: information.select.option.text,
           post: post[0],
+          page: number,
           event: onDelete
         }"
       />
@@ -21,6 +22,7 @@
           category: information.category,
           text: information.select.option.text,
           post: post[0],
+          page: number,
           event: onDelete
         }"
       />
@@ -43,6 +45,7 @@ export default {
   async fetch() {
     this.information.category = this.$route.params.category ? this.$route.params.category : this.$route.name
     this.information.number = this.$route.params.number ? this.$route.params.number : 1
+    this.number = this.$route.query.number
 
     await this.fetchPost({
       category: this.information.category,
@@ -89,27 +92,27 @@ export default {
                 service: 'gallery'
               },
               {
-                text: '컴퓨터 &amp; 하드웨어',
+                text: '하드웨어',
                 value: 'hardware',
                 service: 'gallery'
               },
               {
-                text: '모바일 &amp; 태블릿',
+                text: '모바일',
                 value: 'mobile',
                 service: 'gallery'
               },
               {
-                text: '신작 게임 &amp; 업데이트 동영상',
+                text: '게임',
                 value: 'game',
                 service: 'gallery'
               },
               {
-                text: '넷플릭스 출시 예정 &amp; 신작 동영상',
+                text: '영화',
                 value: 'video',
                 service: 'gallery'
               },
               {
-                text: '공지사항 &amp; 업데이트',
+                text: '새소식',
                 value: 'notice',
                 service: 'board'
               }
@@ -176,12 +179,18 @@ export default {
             result: null
           }
         }
-      }
+      },
+      number: 0
     }
   },
   computed: {
     ...mapState(['post', 'search']),
-    ...mapGetters(['isAuthorized'])
+    ...mapGetters(['isAuthorized']),
+    type() {
+      return {
+        type_gallery: this.information.service === 'gallery'
+      }
+    }
     /*
     classObject() {
       return {

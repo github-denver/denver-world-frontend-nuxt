@@ -234,5 +234,10 @@ export const actions = {
     console.log('[actions.js] createWrite () → payload: ', payload)
 
     return this.$axios.post(`/api/board/${payload.get('category')}/write`, payload)
+  },
+  updateWrite({ commit }, payload) {
+    console.log('[actions.js] updateWrite () → payload: ', payload)
+
+    return this.$axios.post(`/api/board/${payload.get('category')}/modify/${payload.get('number')}`, payload)
   }
 }

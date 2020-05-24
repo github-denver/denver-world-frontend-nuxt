@@ -52,12 +52,12 @@
 
       <div class="grp_btn">
         <div class="inner_half">
-          <nuxt-link v-if="false" :to="{ name: 'list-category-number', params: { category: attribute.category }, query: { select: '', keyword: '' } }" class="link_g">목록으로</nuxt-link>
-          <nuxt-link v-else :to="{ name: 'list-category-number', params: { category: attribute.category } }" class="link_g">목록으로</nuxt-link>
+          <nuxt-link v-if="false" :to="{ name: 'list-category-number', params: { category: attribute.category, number: attribute.page }, query: { select: '', keyword: '' } }" class="link_g">목록으로</nuxt-link>
+          <nuxt-link v-else :to="{ name: 'list-category-number', params: { category: attribute.category, number: attribute.page } }" class="link_g">목록으로</nuxt-link>
         </div>
 
         <div class="inner_half">
-          <nuxt-link :to="{ name: 'index' }" class="link_g link_action">수정하기</nuxt-link>
+          <nuxt-link :to="{ name: 'update-category-number' }" class="link_g link_action">수정하기</nuxt-link>
           <button type="button" class="btn_g btn_delete" v-on="attribute.event ? { click: attribute.event } : null">삭제하기</button>
         </div>
       </div>

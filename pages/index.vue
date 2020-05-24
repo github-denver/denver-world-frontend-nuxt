@@ -51,7 +51,7 @@
             category: 'hardware',
             select: {
               option: {
-                text: '컴퓨터 &amp; 하드웨어'
+                text: '하드웨어'
               }
             },
             content: hardware,
@@ -76,7 +76,7 @@
             category: 'mobile',
             select: {
               option: {
-                text: '모바일 &amp; 태블릿'
+                text: '모바일'
               }
             },
             content: mobile,
@@ -163,7 +163,7 @@
             category: 'notice',
             select: {
               option: {
-                text: '공지사항 &amp; 업데이트'
+                text: '새소식'
               }
             },
             content: notice

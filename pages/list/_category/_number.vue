@@ -19,7 +19,7 @@
       <fragment v-if="!loading">
         <ul v-if="information.service === 'gallery'" class="list_gallery">
           <li v-for="(post, index) in posts" :key="index">
-            <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="link_gallery">
+            <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number }, query: { page: information.number } }" class="link_gallery">
               <div class="thumbnail_g" :style="{ 'padding-top': '56.25%', 'background-image': 'url(http://localhost:4000/uploads/' + post.thumbnail + ')', 'background-position': '50% 50%' }">
                 <div class="dimmed_g">
                   <div class="subject_g">{{ post.subject }}</div>
@@ -31,7 +31,7 @@
 
         <ul v-if="information.service === 'board'" class="list_board">
           <li v-for="post in posts" :key="post.number">
-            <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number } }" class="link_board grp_view">
+            <nuxt-link :to="{ name: 'read-category-number', params: { category: information.category, number: post.number }, query: { page: information.number } }" class="link_board grp_view">
               <div class="view_head outer_cell">
                 <Picture :attribute="{ picture: post.picture, state: 'board' }" />
 
@@ -131,27 +131,27 @@ export default {
                 service: 'gallery'
               },
               {
-                text: '컴퓨터 &amp; 하드웨어',
+                text: '하드웨어',
                 value: 'hardware',
                 service: 'gallery'
               },
               {
-                text: '모바일 &amp; 태블릿',
+                text: '모바일',
                 value: 'mobile',
                 service: 'gallery'
               },
               {
-                text: '신작 게임 &amp; 업데이트 동영상',
+                text: '게임',
                 value: 'game',
                 service: 'gallery'
               },
               {
-                text: '넷플릭스 출시 예정 &amp; 신작 동영상',
+                text: '영화',
                 value: 'video',
                 service: 'gallery'
               },
               {
-                text: '공지사항 &amp; 업데이트',
+                text: '새소식',
                 value: 'notice',
                 service: 'board'
               }
